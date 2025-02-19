@@ -2,6 +2,8 @@ require("dotenv").config();
 const express = require("express");
 const mongoose = require("mongoose");
 const UserRoutes = require("./routes/User")
+const cors = require("cors");
+
 const port = process.env.PORT || 5000;
 const app = express();
 
@@ -13,6 +15,7 @@ try {
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+app.use(cors());
 
 app.get('/', (req, res) => {
     res.send("Home");
