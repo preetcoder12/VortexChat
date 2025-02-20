@@ -2,6 +2,7 @@ require("dotenv").config();
 const express = require("express");
 const mongoose = require("mongoose");
 const UserRoutes = require("./routes/User")
+const messageRoutes = require("./routes/message")
 const cors = require("cors");
 const cookieParser = require("cookie-parser");
 const port = process.env.PORT || 5000;
@@ -23,6 +24,7 @@ app.get('/', (req, res) => {
 })
 
 app.use('/api/user', UserRoutes);
+app.use('/api/message', messageRoutes);
 
 app.listen(port, () => {
     console.log(`Server live at : ${port}`);

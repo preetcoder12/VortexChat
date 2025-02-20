@@ -7,15 +7,23 @@
 }
 
 @keyframes fadeIn {
-    from {
+    0% {
         opacity: 0;
+        transform: scale(0.5) translateY(10px);
     }
-    to {
+
+    50% {
+        opacity: 0.5;
+        transform: scale(1.05) translateY(0px);
+    }
+
+    100% {
         opacity: 1;
+        transform: scale(1);
     }
 }
 
 /* Apply the animation */
 .fade-in {
-    animation: fadeIn 0.1s ease-in-out forwards;
+    animation: fadeIn 0.7s cubic-bezier(0.25, 1, 0.5, 1) forwards;
 }

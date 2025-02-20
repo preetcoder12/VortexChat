@@ -1,5 +1,6 @@
 // import { useEffect, useState } from "react";
 import { useAuth } from "../context/AuthProvider";
+import Loading from "./components/Loading";
 import Login from "./components/Login";
 import Signup from "./components/Signup";
 import Left from "./Home/Left/Left"
@@ -25,6 +26,7 @@ function App() {
 
   return (
     <>
+    {/* <Loading/> */}
       <Routes>
         <Route path="/" element={AuthUser ? <div className={`  fade-in flex h-screen `} >
           <Logout />
