@@ -5,6 +5,7 @@ import axios from "axios";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { useAuth } from "../../context/AuthProvider";
+import { Link } from "react-router-dom";
 
 const Signup = () => {
     // ✅ Correct way to use `useAuth`
@@ -25,7 +26,7 @@ const Signup = () => {
         };
 
         try {
-            const response = await axios.post("http://localhost:8000/user/signup", userInfo);
+            const response = await axios.post("/api/user/signup", userInfo);
             console.log(response.data);
             toast.success("✅ Account created successfully!", { position: "top-right" });
             localStorage.setItem("messenger", JSON.stringify(response.data));
@@ -95,9 +96,12 @@ const Signup = () => {
                 </form>
 
                 {/* Already have an account? */}
-                <p className="text-sm text-gray-400 text-center mt-4">
-                    Already have an account? <span className="text-blue-400 hover:underline cursor-pointer">Log in</span>
-                </p>
+                <Link to={"/login"}>
+
+                    <p className="text-sm text-gray-400 text-center mt-4">
+                        Already have an account? <span className="text-blue-400 hover:underline cursor-pointer">Log in</span>
+                    </p>
+                </Link>
             </div>
 
             {/* Add ToastContainer to render toasts */}

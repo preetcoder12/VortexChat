@@ -5,6 +5,7 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { useForm } from "react-hook-form";
 import { useAuth } from "../../context/AuthProvider";
+import { Link, Navigate } from "react-router-dom";
 
 const Login = () => {
     const [showPassword, setShowPassword] = useState(false);
@@ -23,7 +24,7 @@ const Login = () => {
         };
 
         try {
-            const response = await axios.post("http://localhost:8000/user/login", userInfo);
+            const response = await axios.post("/api/user/login", userInfo);
             console.log("Response Data:", response.data);
 
             localStorage.setItem("messenger", JSON.stringify(response.data));
@@ -89,7 +90,10 @@ const Login = () => {
 
                 {/* Signup Link */}
                 <p className="text-sm text-gray-400 text-center mt-4">
-                    Create an Account? <span className="text-blue-400 hover:underline cursor-pointer">Sign up</span>
+                    <Link to={"/signup"}>
+                        Create an Account? <span className="text-blue-400 hover:underline cursor-pointer " >Sign up</span>
+                    </Link>
+
                 </p>
             </div>
             <ToastContainer />

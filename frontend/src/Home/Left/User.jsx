@@ -1,5 +1,7 @@
 
-const User = () => {
+const User = ({user}) => {
+    
+
     return (
         <div>
             <div className="flex flex-col ">
@@ -13,7 +15,7 @@ const User = () => {
                         />
                     </div>
                     <div>
-                        <h2 className="text-lg font-semibold text-white">Preet</h2>
+                        <h2 className="text-lg font-semibold text-white">{user.username}</h2>
                         <p className="text-sm text-gray-400">Active now</p>
                     </div>
                 </div>
