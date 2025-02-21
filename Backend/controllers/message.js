@@ -53,28 +53,33 @@ const sendMessage = async (req, res) => {
     }
 };
 
-
 const getMessage = async (req, res) => {
-
     try {
-        const { id: chatuser } = req.params;
-        const senderId = req.user._id
-        const ObjectsenderIdId = new mongoose.Types.ObjectId(senderId);
-        const ObjectchatUserId = new mongoose.Types.ObjectId(chatuser);
-        
+        const { id: chatUserId } = req.params;
+        const senderId = req.user?._id; // Ensure user exists
+
+        if (!senderId) {
+            return res.status(401).json({ success: false, error: "Unauthorized access" });
+        }
+
         const conversation = await Conversation.findOne({
-            participants: { $all: [ObjectchatUserId, ObjectsenderIdId] },
-        }).populate("messages");
+            participants: { $all: [chatUserId, senderId] },
+        }).populate({
+            path: "messages",
+            options: { sort: { createdAt: -1 }, limit: 50 }, // Limit messages for better performance
+        });
 
         if (!conversation) {
             return res.status(404).json({ success: false, error: "Conversation not found" });
         }
-        return res.status(200).json({ success: true, data: conversation.messages });
+
+        return res.status(200).json({ success: true, data: conversation.messages || [] });
     } catch (error) {
-        console.error("Error getting message:", error);
+        console.error("Error getting messages:", error);
         return res.status(500).json({ success: false, error: "Internal server error" });
     }
-}
+};
+
 
 
 module.exports = { sendMessage, getMessage };

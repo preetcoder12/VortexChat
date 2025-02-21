@@ -8,11 +8,10 @@ const cookieParser = require("cookie-parser");
 const port = process.env.PORT || 5000;
 const app = express();
 
-try {
-    mongoose.connect(process.env.MONGO_URI).then(console.log("Mongo db connected"));
-} catch (error) {
-    (console.log("Error while connecting Mongodb"));
-}
+mongoose.connect(process.env.MONGO_URI)
+    .then(() => console.log("MongoDB connected"))
+    .catch((error) => console.error("Error while connecting to MongoDB:", error));
+
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));

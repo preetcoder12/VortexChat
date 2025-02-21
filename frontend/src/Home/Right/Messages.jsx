@@ -4,7 +4,7 @@ const Messages = () => {
             
             {/* Left-side Message */}
             <div className="flex items-start space-x-3">
-                <div className="w-10 h-10 rounded-full overflow-hidden">
+                <div className="w-10    h-10 rounded-full overflow-hidden">
                     <img
                         alt="User Avatar"
                         src="https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp"
