@@ -12,21 +12,10 @@ import { Routes, Route, Navigate } from "react-router-dom";
 function App() {
   const { AuthUser, setAuthUser } = useAuth();
   console.log("AuthUser state:", AuthUser);
-  // const [visible, setvisible] = useState(false);
-
-  // useEffect((AuthUser) => {
-  //   if(AuthUser){
-  //     setvisible(true);
-  //   }else {
-  //     setvisible(false);
-  //   }
-  // }, [AuthUser])
-
-
 
   return (
     <>
-    {/* <Loading/> */}
+    
       <Routes>
         <Route path="/" element={AuthUser ? <div className={`  fade-in flex h-screen `} >
           <Logout />

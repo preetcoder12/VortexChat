@@ -1,24 +1,27 @@
 import UsegetMessage from "../../content/UsegetMessage";
 import Messages from "./Messages";
+import useConversation from "../../manageSession/useConversation";  
+import Loading from "../../components/Loading";
 
 const Message = () => {
-    const { messages, loading } = UsegetMessage();
+    const { messages = [], loading } = UsegetMessage(); // Ensure messages is always an array
+    const { selectedConversation } = useConversation(); // Get the selected conversation
 
     return (
         <div className="overflow-y-auto scrollbar-thin scrollbar-thumb-gray-500 scrollbar-track-gray-300 p-2">
             {loading ? (
-                <div className="text-center text-gray-500">Loading messages...</div>
-            ) : messages.length === 0 ? (
-                <div className="flex justify-center items-center h-full text-center text-xl md:text-3xl text-gray-400 fade-in">
-                    <p>Start conversation...</p>
-                </div>
-            ) : (
+                <Loading/>
+            ) : messages.length > 0 ? (
                 <div className="space-y-2">
                     {messages.map((msg) => (
                         <Messages key={msg._id} message={msg} />
                     ))}
                 </div>
-            )}
+            ) : selectedConversation ? ( // Show "Start conversation" only if a chat is selected
+                <div className="flex justify-center items-center h-full text-gray-400 text-lg">
+                    <p>Start conversation...</p>
+                </div>
+            ) : null} {/* Don't show anything if no conversation is selected */}
         </div>
     );
 };

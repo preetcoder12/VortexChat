@@ -14,9 +14,15 @@ const UsegetMessage = () => {
             try {
                 const res = await axios.get(`/api/message/get/${selectedConversation._id}`);
                 console.log("Messages response:", res.data);
-                setMessages(() => res.data); // Functional update
+                
+                if (res.data.success) {
+                    setMessages(res.data.data); // Correctly setting messages array
+                } else {
+                    setMessages([]); // Ensure messages is empty if response is unsuccessful
+                }
             } catch (error) {
                 console.error("Error fetching messages:", error);
+                setMessages([]); // Handle errors by ensuring messages reset
             } finally {
                 setLoading(false);
             }
@@ -27,5 +33,6 @@ const UsegetMessage = () => {
 
     return { messages, loading };
 };
+
 
 export default UsegetMessage;

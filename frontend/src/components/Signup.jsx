@@ -30,7 +30,7 @@ const Signup = () => {
             console.log(response.data);
             toast.success("✅ Account created successfully!", { position: "top-right" });
             localStorage.setItem("messenger", JSON.stringify(response.data));
-            setAuthUser(response.data); // ✅ Update AuthUser correctly
+            setAuthUser(response.data);
         } catch (error) {
             console.error("Signup Error:", error.response?.data?.message || error.message);
             toast.error("❌ Signup failed. Try again!", { position: "top-right" });

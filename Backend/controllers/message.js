@@ -55,23 +55,27 @@ const sendMessage = async (req, res) => {
 
 const getMessage = async (req, res) => {
     try {
-        const { id: chatUserId } = req.params;
+        const { id: chatUserId } = req.params; // ID of the user you're chatting with
         const senderId = req.user?._id; // Ensure user exists
 
         if (!senderId) {
             return res.status(401).json({ success: false, error: "Unauthorized access" });
         }
 
+        // Find conversation between sender and recipient
         const conversation = await Conversation.findOne({
             participants: { $all: [chatUserId, senderId] },
-        }).populate({
-            path: "messages",
-            options: { sort: { createdAt: -1 }, limit: 50 }, // Limit messages for better performance
         });
 
         if (!conversation) {
             return res.status(404).json({ success: false, error: "Conversation not found" });
         }
+
+        // Populate messages
+        await conversation.populate({
+            path: "messages",
+            options: { sort: { createdAt: -1 }, limit: 50 },
+        });
 
         return res.status(200).json({ success: true, data: conversation.messages || [] });
     } catch (error) {
@@ -79,7 +83,5 @@ const getMessage = async (req, res) => {
         return res.status(500).json({ success: false, error: "Internal server error" });
     }
 };
-
-
 
 module.exports = { sendMessage, getMessage };

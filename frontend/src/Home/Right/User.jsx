@@ -1,4 +1,4 @@
-const User = () => {
+const User = ({ user }) => {
     return (
         <div className="bg-slate-950 text-white flex items-center hover:bg-slate-800 pl-5 rounded-md w-full h-[5rem] space-x-3 p-3 transition-all cursor-pointer duration-300">
             {/* User Avatar */}
@@ -12,7 +12,7 @@ const User = () => {
 
             {/* User Info */}
             <div className="flex flex-col">
-                <h2 className="text-lg font-semibold">Preet Gusain</h2>
+                <h2 className="text-lg font-semibold">User</h2>
                 <span className="text-sm ">Online
                 </span>
             </div>
